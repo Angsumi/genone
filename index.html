@@ -198,6 +198,133 @@
     .reveal { opacity:0; transform:translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity:1; transform:none; }
 
+
+    /* ── TIMELINE ── */
+    #timeline {
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    #timeline .section-divider { margin: 1.5rem auto; }
+    .timeline-intro {
+      font-size: 0.95rem; font-weight: 300; color: var(--text-muted);
+      max-width: 550px; margin: 0 auto 3rem; text-align: center; line-height: 1.8;
+    }
+    .timeline-container {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 0 2rem;
+    }
+    /* Horizontal line behind cards */
+    .timeline-line {
+      position: absolute;
+      top: 110px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-light), var(--green-olive), var(--green-mid));
+      z-index: 1;
+    }
+    .timeline-track {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding: 1.5rem 1rem 2.5rem;
+      position: relative;
+      z-index: 2;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .timeline-track::-webkit-scrollbar {
+      height: 6px;
+    }
+    .timeline-track::-webkit-scrollbar-track {
+      background: var(--cream-dark);
+      border-radius: 4px;
+    }
+    .timeline-track::-webkit-scrollbar-thumb {
+      background: var(--green-olive);
+      border-radius: 4px;
+    }
+    .timeline-card {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 2rem 1.6rem;
+      border: 1px solid rgba(27,67,50,0.08);
+      border-top: 4px solid var(--green-olive);
+      box-shadow: 0 6px 20px rgba(27,67,50,0.06);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 36px rgba(27,67,50,0.14);
+      background: var(--white);
+    }
+    .timeline-badge {
+      align-self: flex-start;
+      background: var(--green-dark);
+      color: var(--green-light);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 1.2rem;
+    }
+    .timeline-date {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--green-olive);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .timeline-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--green-dark);
+      line-height: 1.25;
+      margin-bottom: 0.8rem;
+    }
+    .timeline-location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+    }
+    .timeline-location svg {
+      color: var(--green-olive);
+      flex-shrink: 0;
+    }
+    .timeline-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .timeline-nav-hint {
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       #about { grid-template-columns: 1fr; gap: 3rem; }
@@ -220,6 +347,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#committee">Committee</a></li>
       <li><a href="#values">Values</a></li>
+      <li><a href="#timeline">Timeline</a></li>
     </ul>
   </nav>
 
@@ -603,6 +731,99 @@
       <div class="value-item reveal"><div class="value-icon">🤝</div><h3 class="value-title">Unity</h3><p class="value-desc">One generation, standing together — our strength comes from the bonds we share.</p></div>
       <div class="value-item reveal"><div class="value-icon">🔥</div><h3 class="value-title">Action</h3><p class="value-desc">We don't just dream; we act. Every initiative begins with a single determined step.</p></div>
       <div class="value-item reveal"><div class="value-icon">🌍</div><h3 class="value-title">Legacy</h3><p class="value-desc">We build with tomorrow in mind, leaving a future worth inheriting for generations to come.</p></div>
+    </div>
+  </section>
+
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div style="text-align:center;">
+      <p class="section-label">Sunday Initiatives</p>
+      <h2 class="section-title">Weekly Activity Timeline</h2>
+      <div class="section-divider"></div>
+      <p class="timeline-intro">
+        Every Sunday, GenOne steps into action. Join us in our upcoming weekly drives for a cleaner, greener, and united village.
+      </p>
+    </div>
+
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      <div class="timeline-track">
+
+        <!-- Card 1 -->
+        <div class="timeline-card reveal">
+          <span class="timeline-badge">Upcoming Drive</span>
+          <div class="timeline-date">🗓️ Sunday, 23 August 2026</div>
+          <h3 class="timeline-title">Cleanliness Drive</h3>
+          <div class="timeline-location">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+            Morisuti & Rangachakua
+          </div>
+          <p class="timeline-desc">
+            Community-wide sanitation and plastic-waste collection drive to keep our public spaces and roads clean.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="timeline-card reveal">
+          <span class="timeline-badge">Upcoming Drive</span>
+          <div class="timeline-date">🗓️ Sunday, 30 August 2026</div>
+          <h3 class="timeline-title">Plantation Drive</h3>
+          <div class="timeline-location">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+            Village Green Belt & Roadsides
+          </div>
+          <p class="timeline-desc">
+            Mass tree plantation initiative aimed at enhancing green cover and promoting environmental responsibility.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="timeline-card reveal">
+          <span class="timeline-badge">Every Sunday</span>
+          <div class="timeline-date">🗓️ Sunday, 6 September 2026</div>
+          <h3 class="timeline-title">Youth Fitness & Sports Meet</h3>
+          <div class="timeline-location">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+            Local Village Playground
+          </div>
+          <p class="timeline-desc">
+            Morning physical fitness sessions, friendly sports matches, and athletic training for the youth.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="timeline-card reveal">
+          <span class="timeline-badge">Every Sunday</span>
+          <div class="timeline-date">🗓️ Sunday, 13 September 2026</div>
+          <h3 class="timeline-title">Educational Awareness Drive</h3>
+          <div class="timeline-location">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+            Community Reading Center
+          </div>
+          <p class="timeline-desc">
+            Book distribution, career guidance sessions, and literacy encouragement for school students.
+          </p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="timeline-card reveal">
+          <span class="timeline-badge">Recurring Action</span>
+          <div class="timeline-date">🗓️ Every Sunday</div>
+          <h3 class="timeline-title">Weekly Community Engagement</h3>
+          <div class="timeline-location">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-8-7.5-8-12a8 8 0 1 1 16 0c0 4.5-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+            Village Public Grounds
+          </div>
+          <p class="timeline-desc">
+            Rain or shine, GenOne members assemble every Sunday for community service and social progress.
+          </p>
+        </div>
+
+      </div>
+      <div class="timeline-nav-hint">
+        <span>← Scroll horizontally for more events →</span>
+      </div>
     </div>
   </section>
 

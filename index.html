@@ -26,12 +26,12 @@
     ::-webkit-scrollbar-track { background: var(--cream-dark); }
     ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 3px; }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 5vw; height: 70px;
-      background: rgba(27,67,50,0.96);
+      background: rgba(27,67,50,0.97);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
@@ -43,7 +43,7 @@
     .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.25s; }
     .nav-links a:hover { color: var(--green-light); }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
       min-height: 100vh; display: flex; flex-direction: column;
       align-items: center; justify-content: center; text-align: center;
@@ -52,10 +52,11 @@
     }
     .hero::before {
       content: ''; position: absolute; inset: 0;
-      background-image: radial-gradient(circle at 20% 30%, rgba(107,143,82,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(45,106,79,0.25) 0%, transparent 50%);
+      background-image: radial-gradient(circle at 20% 30%, rgba(107,143,82,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(45,106,79,0.25) 0%, transparent 50%);
       animation: breathe 8s ease-in-out infinite alternate;
     }
-    @keyframes breathe { from { opacity: 0.6; transform: scale(1); } to { opacity: 1; transform: scale(1.05); } }
+    @keyframes breathe { from { opacity:0.6; transform:scale(1); } to { opacity:1; transform:scale(1.05); } }
     .hero-content { position: relative; z-index: 1; }
     .hero-logo { width: 160px; height: 160px; object-fit: contain; border-radius: 50%; background: white; padding: 10px; box-shadow: 0 0 0 3px rgba(255,255,255,0.15), 0 12px 40px rgba(0,0,0,0.3); margin-bottom: 2rem; animation: fadeUp 1s ease both; }
     .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem,8vw,6.5rem); font-weight: 300; color: var(--white); letter-spacing: 0.25em; line-height: 1; animation: fadeUp 1s 0.15s ease both; }
@@ -67,15 +68,15 @@
     .hero-cta:hover { background: var(--green-olive); border-color: var(--green-olive); }
     .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(255,255,255,0.35); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; animation: bounce 2s infinite; }
     .hero-scroll::after { content: ''; display: block; width: 1px; height: 40px; background: rgba(255,255,255,0.25); }
-    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+    @keyframes bounce { 0%,100% { transform:translateX(-50%) translateY(0); } 50% { transform:translateX(-50%) translateY(6px); } }
 
-    /* SECTIONS */
+    /* ── SECTIONS ── */
     section { padding: 6rem 5vw; }
     .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--green-olive); margin-bottom: 0.6rem; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 400; color: var(--green-dark); line-height: 1.15; }
     .section-divider { width: 48px; height: 2px; background: var(--green-olive); margin: 1.5rem 0; }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     #about { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
     .about-text p { font-size: 1rem; font-weight: 300; color: #4B5563; line-height: 1.85; margin-top: 1rem; }
     .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -83,56 +84,133 @@
     .stat-card .num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 600; color: var(--green-dark); line-height: 1; }
     .stat-card .label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.4rem; }
 
-    /* MEMBERS */
-    #members { background: var(--cream); text-align: center; }
-    #members .section-divider { margin: 1.5rem auto; }
-    .members-intro { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); max-width: 480px; margin: 0 auto 3.5rem; line-height: 1.8; }
-    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
-    .member-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(27,67,50,0.06); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease; position: relative; opacity: 0; animation: fadeUp 0.6s ease forwards; }
-    .member-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(27,67,50,0.16); }
-    .member-card:nth-child(1) { animation-delay: 0.05s; } .member-card:nth-child(2) { animation-delay: 0.10s; } .member-card:nth-child(3) { animation-delay: 0.15s; } .member-card:nth-child(4) { animation-delay: 0.20s; } .member-card:nth-child(5) { animation-delay: 0.25s; } .member-card:nth-child(6) { animation-delay: 0.30s; } .member-card:nth-child(7) { animation-delay: 0.35s; } .member-card:nth-child(8) { animation-delay: 0.40s; } .member-card:nth-child(9) { animation-delay: 0.45s; } .member-card:nth-child(10) { animation-delay: 0.50s; } .member-card:nth-child(11) { animation-delay: 0.55s; }
-    .member-photo-wrap { position: relative; width: 100%; padding-top: 110%; overflow: hidden; background: var(--cream-dark); }
+    /* ── COMMITTEE (ordered, prominent) ── */
+    #committee { background: var(--cream); text-align: center; }
+    #committee .section-divider { margin: 1.5rem auto; }
+    .committee-intro { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); max-width: 500px; margin: 0 auto 3.5rem; line-height: 1.8; }
+
+    /* Top 3 leadership row */
+    .leadership-row {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
+      max-width: 900px; margin: 0 auto 3rem;
+    }
+    .leader-card {
+      background: var(--white);
+      border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(27,67,50,0.12);
+      width: 260px; flex-shrink: 0;
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+      opacity: 0; animation: fadeUp 0.6s ease forwards;
+    }
+    .leader-card:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(27,67,50,0.2); }
+    .leader-photo-wrap { position: relative; width: 100%; padding-top: 100%; overflow: hidden; background: var(--cream-dark); }
+    .leader-photo-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+    .leader-card:hover .leader-photo-wrap img { transform: scale(1.06); }
+    .leader-photo-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,67,50,0.65) 0%, transparent 50%); opacity: 0; transition: opacity 0.35s; }
+    .leader-card:hover .leader-photo-wrap::after { opacity: 1; }
+    .leader-post-ribbon {
+      position: absolute; top: 14px; left: 0;
+      background: var(--green-dark); color: var(--white);
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 14px 5px 10px; border-radius: 0 3px 3px 0; z-index: 2;
+    }
+    .leader-info { padding: 1.3rem 1.3rem 1.5rem; text-align: left; border-top: 1px solid rgba(27,67,50,0.07); }
+    .leader-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--green-dark); }
+    .leader-role { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-olive); margin-top: 3px; }
+    .leader-phone { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.82rem; font-weight: 400; color: var(--text-muted); }
+    .leader-phone a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .leader-phone a:hover { text-decoration: underline; }
+    .leader-phone svg { flex-shrink: 0; }
+
+    /* General members grid */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.8rem; max-width: 1100px; margin: 0 auto;
+    }
+    .member-card {
+      background: var(--white); border-radius: 8px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(27,67,50,0.06);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+      position: relative; opacity: 0; animation: fadeUp 0.6s ease forwards;
+    }
+    .member-card:hover { transform: translateY(-7px); box-shadow: 0 14px 36px rgba(27,67,50,0.16); }
+    .member-photo-wrap { position: relative; width: 100%; padding-top: 112%; overflow: hidden; background: var(--cream-dark); }
     .member-photo-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
     .member-card:hover .member-photo-wrap img { transform: scale(1.06); }
-    .member-photo-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,67,50,0.7) 0%, transparent 55%); opacity: 0; transition: opacity 0.35s; }
+    .member-photo-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,67,50,0.65) 0%, transparent 50%); opacity: 0; transition: opacity 0.35s; }
     .member-card:hover .member-photo-wrap::after { opacity: 1; }
-    .member-badge { position: absolute; top: 14px; right: 14px; background: var(--green-dark); color: var(--white); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 9px; border-radius: 2px; z-index: 2; }
-    .member-info { padding: 1.25rem 1.25rem 1.4rem; text-align: left; border-top: 1px solid rgba(27,67,50,0.06); }
-    .member-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--green-dark); line-height: 1.2; }
-    .member-role { margin-top: 4px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-olive); }
+    .member-badge { position: absolute; top: 12px; right: 12px; background: var(--green-dark); color: var(--white); font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; z-index: 2; }
+    .member-info { padding: 1.1rem 1.15rem 1.3rem; text-align: left; border-top: 1px solid rgba(27,67,50,0.06); }
+    .member-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--green-dark); line-height: 1.2; }
+    .member-role { margin-top: 3px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: var(--green-olive); }
+    .member-phone { display: flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 0.78rem; color: var(--text-muted); }
+    .member-phone a { color: var(--green-mid); text-decoration: none; font-weight: 500; }
+    .member-phone a:hover { text-decoration: underline; }
 
-    /* VALUES */
+    /* placeholder avatar */
+    .avatar-placeholder {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+    }
+    .avatar-placeholder span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 600; color: rgba(255,255,255,0.7);
+      line-height: 1;
+    }
+
+    /* stagger */
+    .member-card:nth-child(1),.leader-card:nth-child(1) { animation-delay:0.05s; }
+    .member-card:nth-child(2),.leader-card:nth-child(2) { animation-delay:0.10s; }
+    .member-card:nth-child(3),.leader-card:nth-child(3) { animation-delay:0.15s; }
+    .member-card:nth-child(4) { animation-delay:0.20s; }
+    .member-card:nth-child(5) { animation-delay:0.25s; }
+    .member-card:nth-child(6) { animation-delay:0.30s; }
+    .member-card:nth-child(7) { animation-delay:0.35s; }
+    .member-card:nth-child(8) { animation-delay:0.40s; }
+    .member-card:nth-child(9) { animation-delay:0.45s; }
+    .member-card:nth-child(10){ animation-delay:0.50s; }
+    .member-card:nth-child(11){ animation-delay:0.55s; }
+    .member-card:nth-child(12){ animation-delay:0.60s; }
+    .member-card:nth-child(13){ animation-delay:0.65s; }
+    .member-card:nth-child(14){ animation-delay:0.70s; }
+    .member-card:nth-child(15){ animation-delay:0.75s; }
+    .member-card:nth-child(16){ animation-delay:0.80s; }
+
+    /* ── VALUES ── */
     #values { background: var(--green-dark); padding: 5rem 5vw; }
     #values .section-label { color: var(--green-light); }
     #values .section-title { color: var(--white); }
     #values .section-divider { background: var(--green-light); }
-    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; max-width: 1000px; margin: 3rem auto 0; }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 2.5rem; max-width: 1000px; margin: 3rem auto 0; }
     .value-item { text-align: center; }
     .value-icon { width: 56px; height: 56px; background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.5rem; }
     .value-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
     .value-desc { font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.7; }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer { background: #0f2a1e; color: rgba(255,255,255,0.45); text-align: center; padding: 3rem 5vw; font-size: 0.8rem; letter-spacing: 0.05em; line-height: 2; }
     .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--white); letter-spacing: 0.3em; margin-bottom: 0.5rem; }
     .footer-logo span { color: var(--green-light); }
 
-    /* ANIMATIONS */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity:0; transform:translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:none; }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       #about { grid-template-columns: 1fr; gap: 3rem; }
       .nav-links { display: none; }
       .hero-logo { width: 110px; height: 110px; }
       .members-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 1.2rem; }
+      .leader-card { width: 240px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav>
     <a href="#" class="nav-logo">
       <img src="logo.jpg" alt="GenOne Logo" />
@@ -140,11 +218,12 @@
     </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#members">Members</a></li>
-      <li><a href="#values">Our Values</a></li>
+      <li><a href="#committee">Committee</a></li>
+      <li><a href="#values">Values</a></li>
     </ul>
   </nav>
 
+  <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-content">
       <img src="logo.jpg" alt="GenOne Logo" class="hero-logo" />
@@ -152,11 +231,12 @@
       <p class="hero-tagline">One Generation &nbsp;·&nbsp; One Future</p>
       <div class="hero-divider"></div>
       <p class="hero-desc">A youth community rooted in purpose — building stronger bonds, brighter futures, and a better tomorrow for our village.</p>
-      <a href="#members" class="hero-cta">Meet the Team</a>
+      <a href="#committee" class="hero-cta">Meet the Committee</a>
     </div>
     <div class="hero-scroll">Scroll</div>
   </section>
 
+  <!-- ABOUT -->
   <section id="about">
     <div class="about-text reveal">
       <p class="section-label">Who We Are</p>
@@ -166,78 +246,336 @@
       <p style="margin-top:1rem;">With passion, unity, and a commitment to growth, GenOne stands as a symbol of what young people can achieve when they come together with purpose and heart.</p>
     </div>
     <div class="about-stats reveal">
-      <div class="stat-card"><div class="num">11</div><div class="label">Members</div></div>
+      <div class="stat-card"><div class="num">19</div><div class="label">Members</div></div>
       <div class="stat-card"><div class="num">1</div><div class="label">Village</div></div>
       <div class="stat-card"><div class="num">∞</div><div class="label">Possibilities</div></div>
       <div class="stat-card"><div class="num">1</div><div class="label">Future</div></div>
     </div>
   </section>
 
-  <section id="members">
+  <!-- COMMITTEE -->
+  <section id="committee">
     <p class="section-label">The Team</p>
-    <h2 class="section-title">Our Members</h2>
+    <h2 class="section-title">Our Committee</h2>
     <div class="section-divider"></div>
-    <p class="members-intro">Driven individuals, one shared purpose. Meet the people behind GenOne.</p>
+    <p class="committee-intro">Meet the dedicated individuals leading GenOne — elected with trust, driven by purpose.</p>
+
+    <!-- TOP LEADERSHIP -->
+    <div class="leadership-row">
+
+      <!-- President -->
+      <div class="leader-card">
+        <div class="leader-photo-wrap">
+          <img src="nipam-hazarika.jpg" alt="Nipam Hazarika" loading="lazy" />
+          <span class="leader-post-ribbon">President</span>
+        </div>
+        <div class="leader-info">
+          <div class="leader-name">Nipam Hazarika</div>
+          <div class="leader-role">President</div>
+          <div class="leader-phone">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+918876057287">+91 88760 57287</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vice-President -->
+      <div class="leader-card">
+        <div class="leader-photo-wrap">
+          <img src="mahendra-biswakarma.jpg" alt="Mahindra Biswakarma" loading="lazy" />
+          <span class="leader-post-ribbon">Vice-President</span>
+        </div>
+        <div class="leader-info">
+          <div class="leader-name">Mahindra Biswakarma</div>
+          <div class="leader-role">Vice-President</div>
+          <div class="leader-phone">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+918811011962">+91 88110 11962</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- General Secretary -->
+      <div class="leader-card">
+        <div class="leader-photo-wrap">
+          <div class="avatar-placeholder"><span>AD</span></div>
+          <span class="leader-post-ribbon">Gen. Secretary</span>
+        </div>
+        <div class="leader-info">
+          <div class="leader-name">Angsuman Das</div>
+          <div class="leader-role">General Secretary</div>
+          <div class="leader-phone">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:7896505109">7896505109</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- REST OF COMMITTEE -->
     <div class="members-grid">
 
+      <!-- Joint Secretary -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="dharani-gautam.jpg" alt="Dharani Gautam" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Dharani Gautam</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="punam-biswakarma.jpg" alt="Punam Biswakarma" loading="lazy" />
+          <span class="member-badge">Joint Secretary</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Punam Biswakarma</div>
+          <div class="member-role">Joint Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+916003554881">+91 60035 54881</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Treasurer -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="dibya-upadhyaya.jpg" alt="Dibya Upadhyaya" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Dibya Upadhyaya</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="lekhamoni-das.jpg" alt="Lekhamoni Das" loading="lazy" />
+          <span class="member-badge">Treasurer</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Lekhamoni Das</div>
+          <div class="member-role">Treasurer</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:9101270447">9101270447</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Coordinator -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="dipankar-saikia.jpg" alt="Dipankar Saikia" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Dipankar Saikia</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="dibya-devi.jpg" alt="Divya Devi" loading="lazy" />
+          <span class="member-badge">Coordinator</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Divya Devi</div>
+          <div class="member-role">Coordinator</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+917577835351">+91 75778 35351</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Cultural Secretary -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="dishant-gautam.jpg" alt="Dishant Gautam" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Dishant Gautam</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <div class="avatar-placeholder"><span>LS</span></div>
+          <span class="member-badge">Cultural Sec.</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Lucky Sharma</div>
+          <div class="member-role">Cultural Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+918135967097">+91 81359 67097</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Sports Secretary -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="mahendra-biswakarma.jpg" alt="Mahendra Biswakarma" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Mahendra Biswakarma</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="aman-katwal.jpg" alt="Aman Katwal" loading="lazy" />
+          <span class="member-badge">Sports Sec.</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Aman Katwal</div>
+          <div class="member-role">Sports Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+916001227727">+91 60012 27727</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Social Media Secretary 1 -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="mintu-pathak.jpg" alt="Mintu Pathak" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Mintu Pathak</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="dipankar-saikia.jpg" alt="Rohan Dipankar Saikia" loading="lazy" />
+          <span class="member-badge">Social Media</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Rohan Dipankar Saikia</div>
+          <div class="member-role">Social Media Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+919085448995">+91 90854 48995</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Social Media Secretary 2 -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="mukesh-gautam.jpg" alt="Mukesh Gautam" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Mukesh Gautam</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="bibek-pathak.jpg" alt="Bibek Pathak" loading="lazy" />
+          <span class="member-badge">Social Media</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Bibek Pathak</div>
+          <div class="member-role">Social Media Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+919365878248">+91 93658 78248</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Education Secretary 1 -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="nipam-hazarika.jpg" alt="Nipam Hazarika" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Nipam Hazarika</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="mukesh-gautam.jpg" alt="Mukesh Gautam" loading="lazy" />
+          <span class="member-badge">Education Sec.</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Mukesh Gautam</div>
+          <div class="member-role">Education Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+918876089939">+91 88760 89939</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Education Secretary 2 -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="punam-biswakarma.jpg" alt="Punam Biswakarma" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Punam Biswakarma</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <div class="avatar-placeholder"><span>PD</span></div>
+          <span class="member-badge">Education Sec.</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Popi Das</div>
+          <div class="member-role">Education Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+918453830640">+91 84538 30640</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Social Service Secretary 1 -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="rohan-upadhyaya.jpg" alt="Rohan Upadhyaya" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Rohan Upadhyaya</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="dharani-gautam.jpg" alt="Dharani Gautam" loading="lazy" />
+          <span class="member-badge">Social Service</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Dharani Gautam</div>
+          <div class="member-role">Social Service Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+918099087288">+91 80990 87288</a>
+          </div>
+        </div>
       </div>
 
+      <!-- Social Service Secretary 2 -->
       <div class="member-card">
-        <div class="member-photo-wrap"><img src="shikha-sharma.jpg" alt="Shikha Sharma" loading="lazy" /><span class="member-badge">Member</span></div>
-        <div class="member-info"><div class="member-name">Shikha Sharma</div><div class="member-role">Member</div></div>
+        <div class="member-photo-wrap">
+          <img src="dharmaraj-biswakarma.jpg" alt="Dharmaraj Biswakarma" loading="lazy" />
+          <span class="member-badge">Social Service</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Dharmaraj Biswakarma</div>
+          <div class="member-role">Social Service Secretary</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+916900993483">+91 69009 93483</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Executive Member 1 -->
+      <div class="member-card">
+        <div class="member-photo-wrap">
+          <img src="krishna-timsina.jpg" alt="Krishna Timsina" loading="lazy" />
+          <span class="member-badge">Exec. Member</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Krishna Timsina</div>
+          <div class="member-role">Executive Member</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+919707713324">+91 97077 13324</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Executive Member 2 -->
+      <div class="member-card">
+        <div class="member-photo-wrap">
+          <div class="avatar-placeholder"><span>GS</span></div>
+          <span class="member-badge">Exec. Member</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Gyatri Saikia</div>
+          <div class="member-role">Executive Member</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:7086452971">7086452971</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Executive Member 3 -->
+      <div class="member-card">
+        <div class="member-photo-wrap">
+          <div class="avatar-placeholder"><span>TB</span></div>
+          <span class="member-badge">Exec. Member</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Tannu Basnet</div>
+          <div class="member-role">Executive Member</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <span style="font-style:italic; font-size:0.75rem;">Not available</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Executive Member 4 -->
+      <div class="member-card">
+        <div class="member-photo-wrap">
+          <img src="dishant-gautam.jpg" alt="Disant Gautam" loading="lazy" />
+          <span class="member-badge">Exec. Member</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Disant Gautam</div>
+          <div class="member-role">Executive Member</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+917099633072">+91 70996 33072</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Executive Member 5 -->
+      <div class="member-card">
+        <div class="member-photo-wrap">
+          <img src="mintu-pathak.jpg" alt="Mintu Pathak" loading="lazy" />
+          <span class="member-badge">Exec. Member</span>
+        </div>
+        <div class="member-info">
+          <div class="member-name">Mintu Pathak</div>
+          <div class="member-role">Executive Member</div>
+          <div class="member-phone">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+            <a href="tel:+918453120299">+91 84531 20299</a>
+          </div>
+        </div>
       </div>
 
     </div>
   </section>
 
+  <!-- VALUES -->
   <section id="values">
     <div style="text-align:center;">
       <p class="section-label">What Drives Us</p>
@@ -252,6 +590,7 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">GEN<span>ONE</span></div>
     <p>One Generation &nbsp;·&nbsp; One Future</p>
@@ -270,7 +609,7 @@
       (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; } }),
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
-    document.querySelectorAll('.member-card').forEach(el => {
+    document.querySelectorAll('.member-card, .leader-card').forEach(el => {
       el.style.animationPlayState = 'paused';
       cardObs.observe(el);
     });

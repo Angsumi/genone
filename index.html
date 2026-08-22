@@ -35,6 +35,38 @@
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
+    
+    .nav-left { display: flex; align-items: center; gap: 16px; }
+    .adre-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px 4px 6px;
+      background: linear-gradient(135deg, #800000, #a81c1c);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 20px;
+      color: #FFFFFF !important;
+      text-decoration: none !important;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .adre-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 4px 14px rgba(168,28,28,0.5);
+    }
+    .adre-btn img {
+      height: 18px;
+      width: 18px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #FFFFFF;
+      padding: 1px;
+    }
+
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .nav-logo img { height: 36px; width: 36px; object-fit: contain; border-radius: 50%; background: white; padding: 3px; box-shadow: 0 0 0 1.5px rgba(255,255,255,0.2); }
     .nav-logo-text { font-size: 1rem; font-weight: 600; letter-spacing: 0.18em; color: var(--white); }
@@ -376,7 +408,6 @@
       box-shadow: 0 8px 20px rgba(107,143,82,0.3);
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       #about { grid-template-columns: 1fr; gap: 3rem; }
       .nav-links { display: none; }
@@ -384,16 +415,27 @@
       .members-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 1.2rem; }
       .leader-card { width: 240px; }
     }
+    @media (max-width: 480px) {
+      .nav-left { gap: 8px; }
+      .adre-btn { padding: 3px 8px; font-size: 0.58rem; }
+      .nav-logo-text { font-size: 0.85rem; }
+    }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">
-      <img src="logo.jpg" alt="GenOne Logo" />
-      <span class="nav-logo-text">GEN<span>ONE</span></span>
-    </a>
+    <div class="nav-left">
+      <a href="https://angsumi.github.io/ADRE/" target="_blank" rel="noopener" class="adre-btn" title="Free ADRE Mock Test">
+        <img src="logo-2.png" alt="ADRE Logo" />
+        <span>FREE ADRE MOCK</span>
+      </a>
+      <a href="#" class="nav-logo">
+        <img src="logo.jpg" alt="GenOne Logo" />
+        <span class="nav-logo-text">GEN<span>ONE</span></span>
+      </a>
+    </div>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#committee">Committee</a></li>

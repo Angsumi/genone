@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — GenOne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:  #1B4332;
+      --green-mid:   #2D6A4F;
+      --green-olive: #6B8F52;
+      --green-light: #95B87A;
+      --cream:       #F5F0E8;
+      --cream-dark:  #EDE7DA;
+      --white:       #FFFFFF;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 3px; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px;
+      background: rgba(27,67,50,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-left { display: flex; align-items: center; gap: 14px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img {
+      height: 34px; width: 34px; object-fit: contain;
+      border-radius: 50%; background: white; padding: 2px;
+    }
+    .nav-logo-text { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.16em; color: var(--white); }
+    .nav-logo-text span { color: var(--green-light); }
+    
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--green-light); }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white) !important;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .back-btn:hover {
+      background: var(--green-olive);
+      border-color: var(--green-olive);
+    }
+
+    /* Gallery Container & Grid */
+    .gallery-container {
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 84px 20px 40px;
+    }
+    .gallery-grid {
+      column-count: 4;
+      column-gap: 16px;
+    }
+    @media (max-width: 1200px) {
+      .gallery-grid { column-count: 3; column-gap: 14px; }
+    }
+    @media (max-width: 768px) {
+      .gallery-container { padding: 76px 12px 30px; }
+      .gallery-grid { column-count: 2; column-gap: 10px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { column-count: 1; column-gap: 0; }
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #e2ddd3;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    @media (max-width: 768px) {
+      .gallery-item { margin-bottom: 10px; border-radius: 8px; }
+    }
+    .gallery-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.02);
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(10, 20, 15, 0.94);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      user-select: none;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .lightbox-btn {
+      position: absolute;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .lightbox-btn:hover { background: rgba(255,255,255,0.28); transform: scale(1.08); }
+    .lightbox-close { top: 20px; right: 20px; width: 44px; height: 44px; font-size: 24px; }
+    .lightbox-prev { left: 20px; width: 48px; height: 48px; font-size: 22px; }
+    .lightbox-next { right: 20px; width: 48px; height: 48px; font-size: 22px; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-left">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.jpg" alt="GenOne Logo" />
+        <span class="nav-logo-text">GEN<span>ONE</span></span>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#committee">Committee</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="index.html" class="back-btn">← Back</a></li>
+    </ul>
+  </nav>
+
+  <!-- Gallery Grid -->
+  <main class="gallery-container">
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-item"><img src="Gallery/1.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/2.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/3.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/4.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/5.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/6.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/7.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/8.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/9.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/10.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/12.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/13.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/14.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/15.jpeg" alt="" loading="lazy" /></div>
+      <div class="gallery-item"><img src="Gallery/16.jpeg" alt="" loading="lazy" /></div>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-btn lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Previous">&#10094;</button>
+    <img id="lightboxImg" src="" alt="" />
+    <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Next">&#10095;</button>
+  </div>
+
+  <script>
+    const items = Array.from(document.querySelectorAll('.gallery-item img'));
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightboxImg.src = items[currentIndex].src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function showPrev(e) {
+      if (e) e.stopPropagation();
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      lightboxImg.src = items[currentIndex].src;
+    }
+
+    function showNext(e) {
+      if (e) e.stopPropagation();
+      currentIndex = (currentIndex + 1) % items.length;
+      lightboxImg.src = items[currentIndex].src;
+    }
+
+    items.forEach((img, idx) => {
+      img.closest('.gallery-item').addEventListener('click', () => openLightbox(idx));
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', showPrev);
+    nextBtn.addEventListener('click', showNext);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  </script>
+</body>
+</html>

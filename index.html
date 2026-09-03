@@ -121,16 +121,18 @@
     #committee .section-divider { margin: 1.5rem auto; }
     .committee-intro { font-size: 0.95rem; font-weight: 300; color: var(--text-muted); max-width: 500px; margin: 0 auto 3.5rem; line-height: 1.8; }
 
-    /* Top 3 leadership row */
+    /* Top 3 leadership row (always 3 per row) */
     .leadership-row {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
       max-width: 900px; margin: 0 auto 3rem;
     }
     .leader-card {
       background: var(--white);
       border-radius: 10px; overflow: hidden;
       box-shadow: 0 4px 24px rgba(27,67,50,0.12);
-      width: 260px; flex-shrink: 0;
+      width: 100%;
       transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
       opacity: 0; animation: fadeUp 0.6s ease forwards;
     }
@@ -154,11 +156,11 @@
     .leader-phone a:hover { text-decoration: underline; }
     .leader-phone svg { flex-shrink: 0; }
 
-    /* General members grid */
+    /* General members grid (always 4 per row) */
     .members-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.8rem; max-width: 1100px; margin: 0 auto;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
     }
     .member-card {
       background: var(--white); border-radius: 8px; overflow: hidden;
@@ -217,7 +219,7 @@
     #values .section-label { color: var(--green-light); }
     #values .section-title { color: var(--white); }
     #values .section-divider { background: var(--green-light); }
-    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 2.5rem; max-width: 1000px; margin: 3rem auto 0; }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1000px; margin: 3rem auto 0; }
     .value-item { text-align: center; }
     .value-icon { width: 56px; height: 56px; background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.5rem; }
     .value-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--white); margin-bottom: 0.5rem; }
@@ -445,13 +447,84 @@
       #about { grid-template-columns: 1fr; gap: 3rem; }
       .nav-links { display: none; }
       .hero-logo { width: 110px; height: 110px; }
-      .members-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 1.2rem; }
-      .leader-card { width: 240px; }
+      
+      /* Keep 3 in a row for leadership */
+      .leadership-row {
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .leader-info { padding: 0.8rem 0.6rem 1rem; }
+      .leader-name { font-size: 0.95rem; }
+      .leader-role { font-size: 0.58rem; }
+      .leader-phone { font-size: 0.68rem; gap: 3px; margin-top: 6px; }
+      .leader-post-ribbon { font-size: 0.5rem; padding: 3px 8px 3px 6px; top: 8px; }
+
+      /* Keep 4 in a row for general members */
+      .members-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+      }
+      .member-badge { font-size: 0.48rem; padding: 2px 5px; top: 6px; right: 6px; }
+      .member-info { padding: 0.7rem 0.5rem 0.9rem; }
+      .member-name { font-size: 0.85rem; }
+      .member-role { font-size: 0.55rem; }
+      .member-phone { font-size: 0.65rem; gap: 3px; margin-top: 5px; }
+
+      /* Keep values all in a single line */
+      .values-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .value-icon { width: 44px; height: 44px; font-size: 1.2rem; margin-bottom: 0.8rem; }
+      .value-title { font-size: 1.1rem; }
+      .value-desc { font-size: 0.72rem; line-height: 1.5; }
     }
+
     @media (max-width: 480px) {
       .nav-left { gap: 8px; }
       .adre-btn { padding: 3px 8px; font-size: 0.58rem; }
       .nav-logo-text { font-size: 0.85rem; }
+
+      /* Tighter compact scaling on small phones */
+      #committee, #values { padding: 3.5rem 3vw; }
+      
+      .leadership-row {
+        gap: 0.45rem;
+        margin-bottom: 1.5rem;
+      }
+      .leader-card { border-radius: 6px; }
+      .leader-info { padding: 0.5rem 0.35rem 0.7rem; }
+      .leader-name { font-size: 0.72rem; line-height: 1.15; word-break: break-word; }
+      .leader-role { font-size: 0.46rem; letter-spacing: 0.04em; margin-top: 2px; }
+      .leader-phone { font-size: 0.52rem; gap: 2px; margin-top: 4px; flex-wrap: wrap; }
+      .leader-phone svg { width: 9px; height: 9px; }
+      .leader-phone .wa-link svg { width: 9px; height: 9px; }
+      .leader-post-ribbon { font-size: 0.42rem; padding: 2px 5px 2px 4px; top: 5px; letter-spacing: 0.05em; }
+
+      .members-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.35rem;
+      }
+      .member-card { border-radius: 5px; }
+      .member-badge { font-size: 0.4rem; padding: 2px 4px; top: 4px; right: 4px; letter-spacing: 0.04em; }
+      .member-info { padding: 0.45rem 0.3rem 0.6rem; }
+      .member-name { font-size: 0.66rem; line-height: 1.15; word-break: break-word; }
+      .member-role { font-size: 0.44rem; letter-spacing: 0.03em; margin-top: 2px; }
+      .member-phone { font-size: 0.5rem; gap: 2px; margin-top: 4px; flex-wrap: wrap; }
+      .member-phone svg { width: 8px; height: 8px; }
+      .member-phone .wa-link svg { width: 8px; height: 8px; }
+      .avatar-placeholder span { font-size: 1.5rem; }
+
+      /* Values in a single line on mobile */
+      .values-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.35rem;
+        margin-top: 1.5rem;
+      }
+      .value-icon { width: 32px; height: 32px; font-size: 0.95rem; margin-bottom: 0.5rem; }
+      .value-title { font-size: 0.78rem; margin-bottom: 0.25rem; }
+      .value-desc { font-size: 0.52rem; line-height: 1.35; }
     }
   </style>
 </head>

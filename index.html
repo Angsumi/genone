@@ -75,6 +75,45 @@
     .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.25s; }
     .nav-links a:hover { color: var(--green-light); }
 
+    .nav-right { display: flex; align-items: center; gap: 1.8rem; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none !important;
+      color: #FFFFFF !important;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .gallery-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+    .gallery-btn:hover {
+      background: var(--green-olive);
+      border-color: var(--green-olive);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(107,143,82,0.45);
+    }
+    .news-btn {
+      background: linear-gradient(135deg, #2D6A4F, #52793D);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .news-btn:hover {
+      background: linear-gradient(135deg, #388261, #6B8F52);
+      border-color: rgba(255, 255, 255, 0.55);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(45,106,79,0.5);
+    }
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh; display: flex; flex-direction: column;
@@ -444,8 +483,29 @@
     }
 
     @media (max-width: 768px) {
-      #about { grid-template-columns: 1fr; gap: 3rem; }
+      nav {
+        padding: 0 12px;
+        height: 60px;
+      }
+      .nav-left { gap: 8px; }
+      .nav-logo { gap: 8px; }
+      .nav-logo img { height: 30px; width: 30px; }
+      .nav-logo-text { font-size: 0.88rem; letter-spacing: 0.12em; }
+      .adre-btn {
+        padding: 3px 8px 3px 5px;
+        font-size: 0.58rem;
+        gap: 4px;
+      }
+      .adre-btn img { height: 14px; width: 14px; }
       .nav-links { display: none; }
+      .nav-right { gap: 0; }
+      .nav-actions { gap: 6px; }
+      .nav-btn {
+        padding: 4px 10px;
+        font-size: 0.65rem;
+        letter-spacing: 0.04em;
+      }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
       .hero-logo { width: 110px; height: 110px; }
       
       /* Keep 3 in a row for leadership */
@@ -526,6 +586,18 @@
       .value-title { font-size: 0.78rem; margin-bottom: 0.25rem; }
       .value-desc { font-size: 0.52rem; line-height: 1.35; }
     }
+
+    @media (max-width: 420px) {
+      nav { padding: 0 8px; height: 56px; }
+      .nav-left { gap: 6px; }
+      .nav-logo { gap: 6px; }
+      .nav-logo img { height: 26px; width: 26px; }
+      .nav-logo-text { font-size: 0.8rem; letter-spacing: 0.1em; }
+      .adre-btn { padding: 3px 6px; font-size: 0.54rem; gap: 3px; }
+      .adre-btn img { height: 13px; width: 13px; }
+      .nav-actions { gap: 4px; }
+      .nav-btn { padding: 3.5px 8px; font-size: 0.6rem; letter-spacing: 0.02em; }
+    }
   </style>
 </head>
 <body>
@@ -542,14 +614,18 @@
         <span class="nav-logo-text">GEN<span>ONE</span></span>
       </a>
     </div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#committee">Committee</a></li>
-      <li><a href="#values">Values</a></li>
-      <li><a href="#timeline">Timeline</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="news.html">News</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#committee">Committee</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="gallery.html" class="nav-btn gallery-btn">Gallery</a>
+        <a href="news.html" class="nav-btn news-btn">News</a>
+      </div>
+    </div>
   </nav>
 
   <!-- HERO -->

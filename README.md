@@ -45,12 +45,14 @@ A dedicated digital preservation portal documenting regional lineage, historical
 
 ```text
 GenOne/
-├── index.html                  # Main portal landing page
-├── gallery.html                # Event & community photo gallery
-├── news.html                   # News articles & press releases
-├── final_committee_contacts.csv# Committee member details
-├── Gallery/                    # Gallery assets
-├── News article/               # Press clippings and scans
+├── assets/
+│   └── images/
+│       ├── brand/              # Logos and brand graphics
+│       ├── committee/          # Committee member profile photos
+│       ├── gallery/            # Community and event photo gallery
+│       └── news/               # Press clippings and news article images
+├── data/
+│   └── final_committee_contacts.csv # Committee member contact records
 ├── history/                    # Rangachakua History Archive module (rangachakua.web.app)
 │   ├── index.html              # History archive homepage
 │   ├── das.html                # Das heritage collection
@@ -64,6 +66,9 @@ GenOne/
 │   ├── scripts/                # Data processing & sync scripts
 │   ├── firebase.json           # Firebase Hosting & Firestore configuration
 │   └── firestore.rules         # Cloud Firestore security rules
+├── index.html                  # Main portal landing page
+├── gallery.html                # Event & community photo gallery
+├── news.html                   # News articles & press releases
 └── README.md
 ```
 

@@ -9,8 +9,8 @@ A modern web portal and heritage archive designed for the **GenOne** youth organ
 | Platform / Service | Direct Link | Description |
 | :--- | :--- | :--- |
 | 🏛️ **GenOne Official Portal** | [angsumi.github.io/genone](https://angsumi.github.io/genone/) | Main landing page & committee member directory |
-| 📜 **Rangachakua History Archive** | [angsumi.github.io/genone/history](https://angsumi.github.io/genone/history/) | Digital photo & historical document archive |
-| ☁️ **Community Photo App (Firebase)** | [rangachakua.web.app](https://rangachakua.web.app) | Interactive community photo contribution webapp |
+| 📜 **Rangachakua History (Live App)** | [rangachakua.web.app](https://rangachakua.web.app) | Official live history archive & photo contribution webapp |
+| 📂 **History Archive (GitHub Pages Mirror)** | [angsumi.github.io/genone/history](https://angsumi.github.io/genone/history/) | Static photo & document collection viewer |
 | 🖼️ **Photo Gallery** | [angsumi.github.io/genone/gallery.html](https://angsumi.github.io/genone/gallery.html) | Community events, celebrations & milestones |
 | 📰 **News & Press Coverage** | [angsumi.github.io/genone/news.html](https://angsumi.github.io/genone/news.html) | Newspaper clippings, reports & press releases |
 | 🗺️ **Naduar Interactive Map** | [angsumi.github.io/map/naduar](https://angsumi.github.io/map/naduar/) | Regional geographic & village boundary guide |
@@ -31,9 +31,11 @@ A modern web portal and heritage archive designed for the **GenOne** youth organ
 - **Responsive & Lightweight:** Built with modern, clean HTML5/CSS3/JavaScript for fast loading on desktop and mobile devices.
 
 ### 2. 📜 Rangachakua History Archive (`history/`)
+> 🚀 **Live Production Application:** [https://rangachakua.web.app](https://rangachakua.web.app)
+
 A dedicated digital preservation portal documenting regional lineage, historical photographs, and heritage collections:
+- **Live Community Photo Webapp (`history/webapp/`):** Full-featured application deployed at [rangachakua.web.app](https://rangachakua.web.app) allowing community members to contribute and explore historical photos with client-side image optimization, Firebase Firestore integration, and lightbox preview.
 - **Heritage Portals:** Specialized archive viewers for family collections (`das.html`, `upadhyaya.html`, and `index.html`).
-- **Community Photo Webapp (`history/webapp/`):** Full-featured webapp allowing community members to upload and browse historical photos with client-side image optimization, Firebase Firestore integration, and lightbox preview.
 - **Studio & Data Pipelines (`history/studio/`, `history/scripts/`):** Python-based tools and scripts for metadata tagging, deduplication, and JSON/JS dataset generation.
 - **Firebase Configuration:** Configured with `firebase.json` and `firestore.rules` for automated hosting and secured database rules.
 
@@ -49,7 +51,7 @@ GenOne/
 ├── final_committee_contacts.csv# Committee member details
 ├── Gallery/                    # Gallery assets
 ├── News article/               # Press clippings and scans
-├── history/                    # Rangachakua History Archive module
+├── history/                    # Rangachakua History Archive module (rangachakua.web.app)
 │   ├── index.html              # History archive homepage
 │   ├── das.html                # Das heritage collection
 │   ├── upadhyaya.html          # Upadhyaya heritage collection
@@ -69,7 +71,7 @@ GenOne/
 
 ## 🛠️ Tech Stack
 - **Frontend:** HTML5, CSS3, JavaScript (ES6+ Modules)
-- **Backend & Database:** Firebase Firestore, Firebase Hosting
+- **Backend & Database:** Firebase Firestore, Firebase Hosting (`rangachakua.web.app`)
 - **Image Processing & Storage:** HTML5 Canvas image compression, ImgBB API
 - **Data Management:** CSV, JSON
 - **Automation / Utilities:** Python 3 (Flask, PIL)
@@ -91,8 +93,9 @@ GenOne/
 3. Open `http://localhost:8000` in your web browser.
 
 ### History Webapp & Studio
-- To explore the history archive, navigate to `http://localhost:8000/history/` or `http://localhost:8000/history/webapp/`.
-- To run the history studio locally:
+- **Live URL:** Visit [https://rangachakua.web.app](https://rangachakua.web.app)
+- **Local History Webapp:** Open `http://localhost:8000/history/webapp/` or `http://localhost:8000/history/`
+- **Run History Studio locally:**
   ```bash
   cd history
   ./run_studio.sh

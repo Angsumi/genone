@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Rangachakua — Community Historic Photograph Archive</title>
+  <meta name="description" content="A community-driven digital archive preserving ancient, old, and historic photographs of Rangachakua and surrounding villages." />
+  
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Config Alert Banner (shows if Firebase/ImgBB keys are placeholders) -->
+  <aside id="config-banner" class="config-banner hidden" role="alert">
+    <span>⚠️ <strong>Configuration required:</strong> Firebase credentials or ImgBB key need to be set.</span>
+    <button id="btn-open-config" class="btn btn-outline btn-sm">Configure Credentials</button>
+  </aside>
+
+  <!-- Sticky Global Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#/" class="brand-link" id="brand-link" aria-label="Rangachakua Archive Home">
+        <img src="assets/favicon.svg" alt="" class="brand-logo" />
+        <div>
+          <h1 class="brand-title">Rangachakua</h1>
+          <p class="brand-sub">Community Photo Archive</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div id="user-badge" class="user-badge" style="display: none;" title="Your recognized device profile">
+          <span id="user-display-name">You</span>
+          <button id="btn-edit-name" class="btn-icon" style="background:none;border:none;cursor:pointer;font-size:0.75rem;color:var(--text-faint);" title="Edit Name">✎</button>
+        </div>
+        <button id="btn-header-upload" class="btn btn-primary btn-sm">
+          <span>+ Add Photo</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hidden Native File Inputs -->
+  <!-- Direct Camera Capture on Mobile -->
+  <input type="file" id="camera-input" accept="image/*" capture="environment" style="display: none;" />
+  <!-- Standard Photo Picker (Gallery / Files) -->
+  <input type="file" id="gallery-input" accept="image/*" style="display: none;" />
+
+  <!-- Main View Container -->
+  <main class="container" style="flex: 1;">
+
+    <!-- Home View -->
+    <section id="home-view">
+      <!-- Minimalist Hero -->
+      <div class="hero">
+        <span class="hero-tag">Village Heritage</span>
+        <h2 class="hero-title">Preserving Ancient Photographs Together</h2>
+        <p class="hero-lead">
+          Share your family's vintage photographs, old portraits, village landmarks, and historic events of Rangachakua.
+        </p>
+
+        <!-- Big Dual Upload Action Box -->
+        <div class="upload-action-box">
+          <div class="upload-btn-group">
+            <button id="btn-snap-camera" class="btn-camera" type="button">
+              <span>📸</span>
+              <span>Snap with Camera</span>
+            </button>
+            <button id="btn-choose-gallery" class="btn-gallery" type="button">
+              <span>📁</span>
+              <span>Choose Photo</span>
+            </button>
+          </div>
+          <p class="upload-hint">Uploads automatically preserve high resolution with no login hassle.</p>
+        </div>
+      </div>
+
+      <!-- Village Contributors Section -->
+      <section class="section" id="contributors-section">
+        <div class="section-head">
+          <h3 class="section-title">Contributors & Households</h3>
+          <span class="section-count" id="uploaders-count"></span>
+        </div>
+        <div class="uploaders-grid" id="uploaders-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Latest Photographs Section -->
+      <section class="section" id="recent-section">
+        <div class="section-head">
+          <h3 class="section-title">Latest Historical Photographs</h3>
+          <span class="section-count" id="recent-count"></span>
+        </div>
+        <div class="photo-grid" id="recent-photos-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+    </section>
+
+    <!-- Uploader Profile View -->
+    <section id="uploader-view" style="display: none;">
+      <div class="uploader-page-header">
+        <a href="#/" class="back-link">← Back to Village Archive</a>
+        <div class="uploader-page-title-wrap">
+          <h2 class="uploader-page-title" id="uploader-name-heading">Contributor Archive</h2>
+          <span class="uploader-badge" id="uploader-total-badge">0 Photographs</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="photo-grid" id="uploader-photos-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Upload & Details Modal -->
+  <div class="modal-overlay" id="upload-modal" role="dialog" aria-modal="true" aria-labelledby="upload-modal-title">
+    <div class="modal-box">
+      <button class="modal-close" id="upload-modal-close" aria-label="Close modal">&times;</button>
+      <h3 class="modal-title" id="upload-modal-title">Publish Photograph</h3>
+      <p class="modal-subtitle">Add whatever details you know. All fields are optional.</p>
+
+      <form id="upload-form">
+        <!-- Live Image Preview -->
+        <div class="preview-container">
+          <img id="upload-preview-img" class="preview-img" src="" alt="Preview" />
+          <div class="preview-meta-tag" id="preview-meta-info">Ready to process</div>
+        </div>
+
+        <!-- Name Input (Prominently shown if user hasn't set one yet) -->
+        <div class="form-group" id="name-field-group">
+          <label class="form-label" for="input-uploader-name">
+            Your Name / Family Name
+          </label>
+          <input type="text" class="form-input" id="input-uploader-name" placeholder="e.g. Ramen Borah / Upadhyaya Family" required />
+          <small style="font-size: 0.7rem; color: var(--text-faint); margin-top: 2px; display: block;">
+            Recognized automatically on this device — no password needed.
+          </small>
+        </div>
+
+        <!-- Optional Context Fields -->
+        <div class="form-group">
+          <label class="form-label" for="input-place">
+            Place / Location <span class="optional">(Optional)</span>
+          </label>
+          <input type="text" class="form-input" id="input-place" placeholder="e.g. Rangachakua Naamghar, Borgang, Tinikunia" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="input-person">
+            Person(s) in Photo <span class="optional">(Optional)</span>
+          </label>
+          <input type="text" class="form-input" id="input-person" placeholder="e.g. Someswar Das, Biren Upadhyaya" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="input-year">
+            Year / Era <span class="optional">(Optional)</span>
+          </label>
+          <input type="text" class="form-input" id="input-year" placeholder="e.g. 1974, Late 1960s, Pre-Independence" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="input-story">
+            Story or Note <span class="optional">(Optional)</span>
+          </label>
+          <textarea class="form-textarea" id="input-story" placeholder="Any background story, occasion, or memory associated with this photo..."></textarea>
+        </div>
+
+        <!-- Upload Status / Progress -->
+        <div id="upload-status" style="display: none; margin-bottom: 1rem; font-size: 0.8rem; color: var(--primary); text-align: center; font-weight: 500;">
+          ⏳ Compressing and uploading photo...
+        </div>
+
+        <div style="display: flex; gap: 0.6rem; margin-top: 1.25rem;">
+          <button type="submit" id="btn-submit-upload" class="btn btn-primary" style="flex: 1;">
+            Publish to Archive
+          </button>
+          <button type="button" id="btn-cancel-upload" class="btn btn-outline">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Contributor Name Modal (Prompts before capture/upload if not set) -->
+  <div class="modal-overlay" id="name-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="modal-close" id="name-modal-close">&times;</button>
+      <h3 class="modal-title" id="name-modal-title">Enter Your Name</h3>
+      <p class="modal-subtitle" id="name-modal-subtitle">Please enter your name or family name so your contributions are properly attributed in the archive.</p>
+      
+      <form id="name-form">
+        <div class="form-group">
+          <label class="form-label" for="input-update-name">Your Full Name / Household Name</label>
+          <input type="text" class="form-input" id="input-update-name" placeholder="e.g. Ramen Borah / Upadhyaya Family" required autofocus />
+          <small style="font-size: 0.72rem; color: var(--text-faint); margin-top: 3px; display: block;">
+            Saved automatically on this device — you will not be asked again.
+          </small>
+        </div>
+        <div style="display: flex; gap: 0.6rem; margin-top: 1.25rem;">
+          <button type="submit" id="btn-save-name-submit" class="btn btn-primary" style="flex: 1;">Continue to Photo</button>
+          <button type="button" id="btn-cancel-name" class="btn btn-outline">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Runtime Credentials Configuration Modal -->
+  <div class="modal-overlay" id="config-modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="modal-close" id="config-modal-close">&times;</button>
+      <h3 class="modal-title">Setup Credentials</h3>
+      <p class="modal-subtitle">Paste your Firebase & ImgBB credentials below (saved locally in your browser, or permanently in <code>webapp/js/config.js</code>).</p>
+
+      <form id="config-form">
+        <div class="form-group">
+          <label class="form-label" for="cfg-imgbb">ImgBB API Key</label>
+          <input type="text" class="form-input" id="cfg-imgbb" placeholder="Get free key at api.imgbb.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cfg-apikey">Firebase API Key</label>
+          <input type="text" class="form-input" id="cfg-apikey" placeholder="AIzaSy..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cfg-projectid">Firebase Project ID</label>
+          <input type="text" class="form-input" id="cfg-projectid" placeholder="rangachakua or your-project-id" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cfg-appid">Firebase App ID</label>
+          <input type="text" class="form-input" id="cfg-appid" placeholder="1:123456789:web:abcdef" />
+        </div>
+        <div style="display: flex; gap: 0.6rem; margin-top: 1rem;">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">Save & Reload</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Fullscreen Lightbox -->
+  <div class="lightbox-overlay" id="lightbox-modal" role="dialog" aria-modal="true">
+    <div class="lightbox-header">
+      <button class="lightbox-close-btn" id="lightbox-close" aria-label="Close fullscreen view">&times;</button>
+    </div>
+    <div class="lightbox-content lightbox-backdrop">
+      <img id="lightbox-image" class="lightbox-image" src="" alt="Historical Photograph" />
+    </div>
+    <div id="lightbox-details" class="lightbox-details">
+      <!-- Populated via lightbox.js -->
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Rangachakua Community Archive &bull; Preserving Naduar & Rangachakua Heritage</p>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript App -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+rules_version = '2';
+
+/**
+ * Cloud Firestore Security Rules
+ * Application: Rangachakua Community Photo Archive
+ * Description: Hardened security rules with strict schema validation, owner-bound
+ *              mutations, resource exhaustion / DoS defenses, and immutable audit fields.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ========================================================================
+    // Core Helper Functions
+    // ========================================================================
+
+    /**
+     * Checks if the request is from an authenticated user (including anonymous auth).
+     */
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+
+    /**
+     * Validates that a string is a well-formed HTTP/HTTPS URL within safe length bounds.
+     */
+    function isValidUrl(url) {
+      return url is string
+        && url.size() >= 10
+        && url.size() <= 2048
+        && url.matches('^https?://.+');
+    }
+
+    // ========================================================================
+    // Collection: uploaders
+    // Documents representing registered photo contributors / community members.
+    // ========================================================================
+
+    /**
+     * Validates the schema, field types, and size constraints for an uploader document.
+     */
+    function isValidUploader(data) {
+      return data.keys().hasAll(['name', 'uid', 'photoCount', 'createdAt'])
+        && data.keys().hasOnly(['name', 'uid', 'photoCount', 'latestPhotoThumb', 'createdAt', 'updatedAt'])
+        // Contributor display name (bounded to prevent UI breakage/DoS)
+        && data.name is string
+        && data.name.size() <= 100
+        // User UID matching auth UID format
+        && data.uid is string
+        && data.uid.size() >= 1
+        && data.uid.size() <= 128
+        // Photo count metric
+        && data.photoCount is int
+        && data.photoCount >= 0
+        && data.photoCount <= 1000000
+        // Timestamp fields
+        && data.createdAt is timestamp
+        && (!('updatedAt' in data) || data.updatedAt is timestamp)
+        // Latest thumbnail preview (optional string URL or null)
+        && (
+          !('latestPhotoThumb' in data)
+          || data.latestPhotoThumb == null
+          || isValidUrl(data.latestPhotoThumb)
+        );
+    }
+
+    /**
+     * Ensures critical ownership and audit fields cannot be tampered with on update.
+     */
+    function isUploaderImmutable() {
+      return request.resource.data.uid == resource.data.uid
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.photoCount >= resource.data.photoCount;
+    }
+
+    match /uploaders/{uploaderId} {
+      // Contributor directory is publicly viewable
+      allow read: if true;
+
+      // Authenticated users can initialize their own profile
+      allow create: if isAuthenticated()
+                    && request.resource.data.uid == request.auth.uid
+                    && (uploaderId == request.auth.uid || uploaderId == request.resource.data.uid)
+                    && isValidUploader(request.resource.data);
+
+      // Only the profile owner can update their uploader record
+      allow update: if isAuthenticated()
+                    && (resource.data.uid == request.auth.uid || uploaderId == request.auth.uid)
+                    && isValidUploader(request.resource.data)
+                    && isUploaderImmutable();
+
+      // Deletion from client is disallowed to maintain archive integrity
+      allow delete: if false;
+    }
+
+    // ========================================================================
+    // Collection: photos
+    // Documents representing historic community photographs and associated stories.
+    // ========================================================================
+
+    /**
+     * Validates the schema, field types, and size constraints for a photo document.
+     */
+    function isValidPhoto(data) {
+      return data.keys().hasAll(['uploaderId', 'uploaderName', 'imageUrl', 'thumbUrl', 'createdAt'])
+        && data.keys().hasOnly([
+          'uploaderId',
+          'uploaderName',
+          'uploaderUid',
+          'imageUrl',
+          'thumbUrl',
+          'displayUrl',
+          'deleteUrl',
+          'place',
+          'person',
+          'year',
+          'story',
+          'createdAt'
+        ])
+        // Identifier & attribution fields
+        && data.uploaderId is string
+        && data.uploaderId.size() >= 1
+        && data.uploaderId.size() <= 128
+        && data.uploaderName is string
+        && data.uploaderName.size() <= 100
+        && (!('uploaderUid' in data) || data.uploaderUid == null || (data.uploaderUid is string && data.uploaderUid.size() <= 128))
+        // Image URLs
+        && isValidUrl(data.imageUrl)
+        && isValidUrl(data.thumbUrl)
+        && (!('displayUrl' in data) || data.displayUrl == null || isValidUrl(data.displayUrl))
+        && (!('deleteUrl' in data) || data.deleteUrl == null || (data.deleteUrl is string && data.deleteUrl.size() <= 2048))
+        // Metadata fields with strict bounds to prevent DoS / resource exhaustion
+        && (!('place' in data) || (data.place is string && data.place.size() <= 200))
+        && (!('person' in data) || (data.person is string && data.person.size() <= 200))
+        && (!('year' in data) || (data.year is string && data.year.size() <= 50))
+        && (!('story' in data) || (data.story is string && data.story.size() <= 5000))
+        // Timestamp
+        && data.createdAt is timestamp;
+    }
+
+    /**
+     * Determines whether the authenticated user is the legitimate author of the photo.
+     */
+    function isPhotoAuthor(data) {
+      return isAuthenticated() && (
+        ('uploaderUid' in data && data.uploaderUid == request.auth.uid)
+        || data.uploaderId == request.auth.uid
+      );
+    }
+
+    /**
+     * Verifies authorship and prevents identity spoofing upon photo creation.
+     */
+    function isPhotoAuthorCreate(data) {
+      return isAuthenticated()
+        && (data.uploaderId == request.auth.uid || ('uploaderUid' in data && data.uploaderUid == request.auth.uid))
+        && (!('uploaderUid' in data) || data.uploaderUid == null || data.uploaderUid == request.auth.uid);
+    }
+
+    /**
+     * Ensures immutable identifiers, creation timestamp, and image sources cannot be modified.
+     */
+    function isPhotoImmutable() {
+      return request.resource.data.uploaderId == resource.data.uploaderId
+        && (!('uploaderUid' in resource.data) || request.resource.data.uploaderUid == resource.data.uploaderUid)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.imageUrl == resource.data.imageUrl
+        && request.resource.data.thumbUrl == resource.data.thumbUrl;
+    }
+
+    match /photos/{photoId} {
+      // Archive photos are publicly readable by everyone
+      allow read: if true;
+
+      // Authenticated contributors can add new photos attributed to themselves
+      allow create: if isAuthenticated()
+                    && isPhotoAuthorCreate(request.resource.data)
+                    && isValidPhoto(request.resource.data);
+
+      // Only the author can update photo details (e.g. story, names, place, year)
+      allow update: if isAuthenticated()
+                    && isPhotoAuthor(resource.data)
+                    && isValidPhoto(request.resource.data)
+                    && isPhotoImmutable();
+
+      // Only the original author can delete their uploaded photo
+      allow delete: if isAuthenticated()
+                    && isPhotoAuthor(resource.data);
+    }
+
+    // ========================================================================
+    // Root Default Deny
+    // Disallow access to any unmatched collections or documents.
+    // ========================================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

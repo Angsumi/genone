@@ -1,23 +1,86 @@
 # GenOne
 
-A modern web portal designed for the GenOne youth organization. This repository hosts the frontend codebase that showcases the organization's committee members, mission, and activities.
+A modern web portal and heritage archive designed for the **GenOne** youth organization. This repository hosts the frontend codebase showcasing organization committee members, mission, activities, news publications, and the digital historical archive.
 
-## 🌟 Features
-- **Committee Showcase:** A dedicated section displaying profiles of core committee members with dynamic image rendering.
-- **Responsive Design:** Optimized for both mobile and desktop viewing experiences.
-- **Fast and Lightweight:** Built with pure HTML/CSS without heavy frameworks, ensuring rapid load times.
-- **Easy Content Management:** Member data is maintained in a simple CSV format (`final_committee_contacts.csv`).
+---
+
+## 🌟 Features & Modules
+
+### 1. 🏛️ Main Web Portal
+- **Committee Showcase:** Dedicated interactive section displaying profiles of core committee members with dynamic image rendering.
+- **News & Media Coverage:** Dedicated press coverage hub (`news.html`) featuring publications and news articles.
+- **Photo Gallery:** Curated photo gallery (`gallery.html`) covering community events, activities, and milestones.
+- **Responsive & Lightweight:** Built with modern, clean HTML5/CSS3/JavaScript for fast loading on desktop and mobile devices.
+
+### 2. 📜 Rangachakua History Archive (`history/`)
+A dedicated digital preservation portal documenting regional lineage, historical photographs, and heritage collections:
+- **Heritage Portals:** Specialized archive viewers for family collections (`das.html`, `upadhyaya.html`, and `index.html`).
+- **Community Photo Webapp (`history/webapp/`):** Full-featured webapp allowing community members to upload and browse historical photos with client-side image optimization, Firebase Firestore integration, and lightbox preview.
+- **Studio & Data Pipelines (`history/studio/`, `history/scripts/`):** Python-based tools and scripts for metadata tagging, deduplication, and JSON/JS dataset generation.
+- **Firebase Configuration:** Configured with `firebase.json` and `firestore.rules` for automated hosting and secured database rules.
+
+---
+
+## 📁 Repository Structure
+
+```text
+GenOne/
+├── index.html                  # Main portal landing page
+├── gallery.html                # Event & community photo gallery
+├── news.html                   # News articles & press releases
+├── final_committee_contacts.csv# Committee member details
+├── Gallery/                    # Gallery assets
+├── News article/               # Press clippings and scans
+├── history/                    # Rangachakua History Archive module
+│   ├── index.html              # History archive homepage
+│   ├── das.html                # Das heritage collection
+│   ├── upadhyaya.html          # Upadhyaya heritage collection
+│   ├── webapp/                 # Community photo contribution web application
+│   │   ├── index.html
+│   │   ├── css/
+│   │   └── js/
+│   ├── collections/            # Archival photo collections
+│   ├── studio/                 # Archive curation & metadata studio (Python)
+│   ├── scripts/                # Data processing & sync scripts
+│   ├── firebase.json           # Firebase Hosting & Firestore configuration
+│   └── firestore.rules         # Cloud Firestore security rules
+└── README.md
+```
+
+---
 
 ## 🛠️ Tech Stack
-- **Frontend:** HTML5, CSS3
-- **Data Management:** CSV
-- **Assets:** High-quality optimized JPEG/PNG images
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+ Modules)
+- **Backend & Database:** Firebase Firestore, Firebase Hosting
+- **Image Processing & Storage:** HTML5 Canvas image compression, ImgBB API
+- **Data Management:** CSV, JSON
+- **Automation / Utilities:** Python 3 (Flask, PIL)
+
+---
 
 ## 🚀 Getting Started
-To view or develop the site locally:
-1. Clone this repository.
-2. Open `index.html` in any modern web browser.
-3. To test as a server, you can run `python3 -m http.server` and visit `http://localhost:8000`.
+
+### Local Development (Static Pages)
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/Angsumi/genone.git
+   cd genone
+   ```
+2. Start a local HTTP server:
+   ```bash
+   python3 -m http.server 8000
+   ```
+3. Open `http://localhost:8000` in your web browser.
+
+### History Webapp & Studio
+- To explore the history archive, navigate to `http://localhost:8000/history/` or `http://localhost:8000/history/webapp/`.
+- To run the history studio locally:
+  ```bash
+  cd history
+  ./run_studio.sh
+  ```
+
+---
 
 ## 📖 About
-GenOne is focused on youth empowerment and community building. This portal acts as the digital front door for the organization, allowing members and the public to connect with the leadership team.
+**GenOne** is dedicated to youth empowerment, cultural preservation, and community building. This portal acts as the digital front door and historical preservation hub for the organization and its community.

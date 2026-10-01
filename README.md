@@ -1,6 +1,24 @@
 # GenOne
 
-A modern web portal and heritage archive designed for the **GenOne** youth organization. This repository hosts the frontend codebase showcasing organization committee members, mission, activities, news publications, and the digital historical archive.
+A modern web portal and heritage archive designed for the **GenOne** youth organization. This repository hosts the frontend codebase showcasing organization committee members, mission, activities, news publications, and digital historical archives.
+
+---
+
+## 🌐 Live Websites & Quick Links
+
+| Platform / Service | Direct Link | Description |
+| :--- | :--- | :--- |
+| 🏛️ **GenOne Official Portal** | [angsumi.github.io/genone](https://angsumi.github.io/genone/) | Main landing page & committee member directory |
+| 📜 **Rangachakua History Archive** | [angsumi.github.io/genone/history](https://angsumi.github.io/genone/history/) | Digital photo & historical document archive |
+| ☁️ **Community Photo App (Firebase)** | [rangachakua.web.app](https://rangachakua.web.app) | Interactive community photo contribution webapp |
+| 🖼️ **Photo Gallery** | [angsumi.github.io/genone/gallery.html](https://angsumi.github.io/genone/gallery.html) | Community events, celebrations & milestones |
+| 📰 **News & Press Coverage** | [angsumi.github.io/genone/news.html](https://angsumi.github.io/genone/news.html) | Newspaper clippings, reports & press releases |
+| 🗺️ **Naduar Interactive Map** | [angsumi.github.io/map/naduar](https://angsumi.github.io/map/naduar/) | Regional geographic & village boundary guide |
+| 📝 **ADRE Mock Test Portal** | [angsumi.github.io/ADRE](https://angsumi.github.io/ADRE/) | Free educational mock test portal for students |
+
+### 📱 Official Social Channels
+- **Instagram:** [@genone__official](https://www.instagram.com/genone__official/)
+- **Facebook:** [GenOne Facebook Page](https://www.facebook.com/profile.php?id=61593255946763)
 
 ---
 
